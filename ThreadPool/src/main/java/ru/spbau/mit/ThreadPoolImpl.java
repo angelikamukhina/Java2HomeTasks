@@ -27,11 +27,11 @@ public class ThreadPoolImpl implements ThreadPool {
         LightFutureImpl<RetType> future = new LightFutureImpl<>(this);
         synchronized (workQueue) {
             Runnable newTask = () -> {
-                    try {
-                        future.setResult(supplier.get());
-                    } catch (Exception e) {
-                        future.setException(new LightExecutionException(e));
-                    }
+                try {
+                    future.setResult(supplier.get());
+                } catch (Exception e) {
+                    future.setException(new LightExecutionException(e));
+                }
             };
             pushTaskToQueue(newTask);
         }

@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ThreadPoolImplTest {
     @Test
@@ -43,7 +44,7 @@ public class ThreadPoolImplTest {
                     sum += step * Math.sin(x);
                 }
                 return sum;
-                }));
+            }));
         }
 
         double value = 0;

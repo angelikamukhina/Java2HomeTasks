@@ -3,9 +3,9 @@ package ru.spbau.mit;
 import java.util.function.Function;
 
 public class LightFutureImpl<RetType> implements LightFuture<RetType> {
+    private final ThreadPoolImpl threadPool;
     private RetType result = null;
     private LightExecutionException exception = null;
-    private final ThreadPoolImpl threadPool;
 
     LightFutureImpl(ThreadPoolImpl threadPool) {
         this.threadPool = threadPool;

@@ -2,7 +2,8 @@ package ru.spbau.mit;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class LightFutureImplTest {
 
@@ -27,7 +28,7 @@ public class LightFutureImplTest {
     @Test(expected = LightExecutionException.class)
     public void getWithException() throws Exception {
         ThreadPool threadPool = new ThreadPoolImpl(4);
-        LightFuture<Double> future  = threadPool.submit(() -> {
+        LightFuture<Double> future = threadPool.submit(() -> {
             throw new ArithmeticException();
         });
         future.get();
