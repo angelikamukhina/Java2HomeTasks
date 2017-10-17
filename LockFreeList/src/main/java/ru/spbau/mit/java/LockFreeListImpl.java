@@ -62,7 +62,6 @@ public class LockFreeListImpl<KeyType> implements LockFreeList<KeyType> {
             }
         }
 
-        // We will request searchNeighbours to change links if previousNode.next is marked.
         if (!previousNode.next.compareAndSet(currentNode, currentNodeNext, false, false)) {
             searchNeighbours(value);
         }
