@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ThreadPool.iml" filepath="$PROJECT_DIR$/.idea/modules/ThreadPool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ThreadPool_main.iml" filepath="$PROJECT_DIR$/.idea/modules/ThreadPool_main.iml" group="ThreadPool" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ThreadPool_test.iml" filepath="$PROJECT_DIR$/.idea/modules/ThreadPool_test.iml" group="ThreadPool" />
+    </modules>
+  </component>
+</project>

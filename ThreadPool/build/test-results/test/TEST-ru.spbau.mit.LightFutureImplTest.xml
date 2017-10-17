@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.spbau.mit.LightFutureImplTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2017-10-08T11:42:56" hostname="angelika-laptop" time="5.847">
+  <properties/>
+  <testcase name="get" classname="ru.spbau.mit.LightFutureImplTest" time="0.05"/>
+  <testcase name="thenApply" classname="ru.spbau.mit.LightFutureImplTest" time="5.759"/>
+  <testcase name="testGetReturnsNull" classname="ru.spbau.mit.LightFutureImplTest" time="0.021"/>
+  <testcase name="getWithException" classname="ru.spbau.mit.LightFutureImplTest" time="0.002"/>
+  <testcase name="isReady" classname="ru.spbau.mit.LightFutureImplTest" time="0.014"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
