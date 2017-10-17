@@ -3,7 +3,7 @@ package ru.spbau.mit;
 import java.util.function.Supplier;
 
 public interface ThreadPool {
-    <RetType> LightFuture<RetType> submit(Supplier<RetType> supplier);
+    <ReturnType> LightFuture<ReturnType> submit(Supplier<ReturnType> supplier);
 
     void shutdown();
 }

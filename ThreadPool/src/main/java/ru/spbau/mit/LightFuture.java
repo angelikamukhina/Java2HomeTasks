@@ -2,10 +2,10 @@ package ru.spbau.mit;
 
 import java.util.function.Function;
 
-public interface LightFuture<RetType> {
+public interface LightFuture<ReturnType> {
     boolean isReady();
 
-    RetType get() throws LightExecutionException, InterruptedException;
+    ReturnType get() throws LightExecutionException, InterruptedException;
 
-    <FunRetType> LightFuture<FunRetType> thenApply(Function<? super RetType, ? extends FunRetType> func) throws LightExecutionException;
+    <FunRetType> LightFuture<FunRetType> thenApply(Function<? super ReturnType, ? extends FunRetType> func) throws LightExecutionException;
 }

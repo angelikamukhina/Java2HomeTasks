@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 public class ThreadPoolImpl implements ThreadPool {
     private final Queue<Runnable> workQueue = new LinkedList<>();
     private final List<Thread> threads = new ArrayList<>();
-    private boolean isWorking = true;
+    private volatile boolean isWorking = true;
 
     public ThreadPoolImpl(int n) {
         for (int i = 0; i < n; i++) {
@@ -20,11 +20,11 @@ public class ThreadPoolImpl implements ThreadPool {
     }
 
     @Override
-    public <RetType> LightFuture<RetType> submit(Supplier<RetType> supplier) {
+    public <ReturnType> LightFuture<ReturnType> submit(Supplier<ReturnType> supplier) {
         if (!isWorking) {
             return null;
         }
-        LightFutureImpl<RetType> future = new LightFutureImpl<>(this);
+        LightFutureImpl<ReturnType> future = new LightFutureImpl<>(this);
         synchronized (workQueue) {
             Runnable newTask = () -> {
                 try {

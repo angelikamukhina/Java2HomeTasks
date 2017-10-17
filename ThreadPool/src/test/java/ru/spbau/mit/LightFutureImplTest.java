@@ -2,8 +2,7 @@ package ru.spbau.mit;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class LightFutureImplTest {
 
@@ -25,6 +24,13 @@ public class LightFutureImplTest {
         assertTrue(Math.abs(sinIntegral.get()) < 1e-5);
     }
 
+    @Test
+    public void testGetReturnsNull() throws Exception {
+        ThreadPool threadPool = new ThreadPoolImpl(4);
+        LightFuture<Object> futureWithNull = threadPool.submit(() -> null);
+        assertNull(futureWithNull.get());
+    }
+
     @Test(expected = LightExecutionException.class)
     public void getWithException() throws Exception {
         ThreadPool threadPool = new ThreadPoolImpl(4);
@@ -36,12 +42,24 @@ public class LightFutureImplTest {
 
     @Test
     public void thenApply() throws Exception {
+
         ThreadPool threadPool = new ThreadPoolImpl(4);
-        LightFuture<Double> future = threadPool.submit(() -> 2.0);
-        for (int deg = 2; deg < 10; deg++) {
-            future = future.thenApply(d -> d * 2);
-            assertTrue(future.get() - Math.pow(2, deg) < 1e-4);
+        for (int i = 0; i < 1e3; i++) {
+            threadPool.submit(() -> {
+                Integer sum = 0;
+                for (Integer integer = 0; integer < 1e6; integer++) {
+                    sum += integer;
+                }
+                return sum;
+            });
         }
+        LightFuture<Double> future = threadPool.submit(() -> 2.0);
+        for (int i = 2; i < 10; i++) {
+            future.thenApply(d -> d * 2);
+        }
+        LightFuture<Double> waitingFuture = future.thenApply(d -> d * 2);
+        double res = waitingFuture.get();
+        assertTrue(Math.abs(res - 4) < 1e-5);
     }
 
     double sinIntegral(double left, double right, double step) {
