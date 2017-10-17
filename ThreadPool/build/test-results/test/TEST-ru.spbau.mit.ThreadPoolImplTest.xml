@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ru.spbau.mit.ThreadPoolImplTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2017-10-08T11:42:48" hostname="angelika-laptop" time="8.459">
-  <properties/>
-  <testcase name="execute" classname="ru.spbau.mit.ThreadPoolImplTest" time="8.413"/>
-  <testcase name="shutdown" classname="ru.spbau.mit.ThreadPoolImplTest" time="0.024"/>
-  <testcase name="checkThreadsNumber" classname="ru.spbau.mit.ThreadPoolImplTest" time="0.02"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
