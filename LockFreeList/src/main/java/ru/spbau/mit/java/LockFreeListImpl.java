@@ -14,7 +14,7 @@ public class LockFreeListImpl<KeyType> implements LockFreeList<KeyType> {
 
     @Override
     public boolean isEmpty() {
-        return head.next.getReference() == tail;
+        return searchTheLastElement() == head;
     }
 
     @Override
