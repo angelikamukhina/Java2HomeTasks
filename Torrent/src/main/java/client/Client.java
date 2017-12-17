@@ -7,7 +7,7 @@ import utils.FileInfo;
 import java.io.IOException;
 import java.util.Map;
 
-public interface Client {
+interface Client {
     void start(String trackerHost, short seedPort, int threadsNumber) throws UnableReadState;
 
     void stop() throws UnableStoreState;
@@ -16,5 +16,5 @@ public interface Client {
 
     int uploadFile(String filePath) throws IOException;
 
-    boolean downloadFile(int fileId, String filePath) throws IOException;
+    void downloadFile(int fileId, String filePath) throws IOException;
 }

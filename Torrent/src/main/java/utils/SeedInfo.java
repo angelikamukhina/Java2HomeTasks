@@ -1,8 +1,9 @@
 package utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
 
 public class SeedInfo {
     private final IPv4 ip;
@@ -11,16 +12,6 @@ public class SeedInfo {
     public SeedInfo(IPv4 ip, short port) {
         this.ip = ip;
         this.port = port;
-    }
-
-    public static SeedInfo getSeedInfo(Socket socket) {
-        if (!socket.isClosed()) {
-            short port = (short) socket.getPort();
-            byte[] ip = socket.getRemoteSocketAddress().toString().getBytes();
-            return new SeedInfo(new IPv4(ip), port);
-        } else {
-            throw new IllegalArgumentException("Socket is closed");
-        }
     }
 
     public IPv4 getIp() {
@@ -38,7 +29,7 @@ public class SeedInfo {
                 ((SeedInfo) object).port == port;
     }
 
-    public void write(DataOutputStream out) throws IOException {
+    public void write(@NotNull DataOutputStream out) throws IOException {
         ip.write(out);
         out.writeShort(port);
     }

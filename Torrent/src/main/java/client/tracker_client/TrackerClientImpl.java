@@ -8,8 +8,8 @@ import messages.client_tracker.client.UpdateRequest;
 import messages.client_tracker.client.UploadRequest;
 import messages.client_tracker.tracker.ListResponse;
 import messages.client_tracker.tracker.SourcesResponse;
-import messages.client_tracker.tracker.UpdateResponse;
 import messages.client_tracker.tracker.UploadResponse;
+import org.jetbrains.annotations.NotNull;
 import utils.FileInfo;
 import utils.SeedInfo;
 import utils.TorrentConstants;
@@ -50,7 +50,7 @@ public class TrackerClientImpl implements TrackerClient {
     }
 
     @Override
-    public int uploadNewFile(String filePath) throws InternalTrackerClientException {
+    public int uploadNewFile(@NotNull String filePath) throws InternalTrackerClientException {
         File file = new File(filePath);
         if (file.exists() && !file.isDirectory()) {
             String fileName = file.getName();
@@ -71,9 +71,8 @@ public class TrackerClientImpl implements TrackerClient {
     }
 
     @Override
-    public boolean updateClientInfo(short seedPort, Set<Integer> filesIds) {
+    public void updateClientInfo(short seedPort, Set<Integer> filesIds) {
         UpdateRequest query = new UpdateRequest(seedPort, filesIds);
-        UpdateResponse response = query.handleQuery(socket);
-        return response.getStatus();
+        query.handleQuery(socket);
     }
 }

@@ -5,6 +5,7 @@ import exceptions.UnableParseQueryException;
 import messages.Queries;
 import messages.client_tracker.client.*;
 import messages.client_tracker.tracker.TrackerMessage;
+import org.jetbrains.annotations.NotNull;
 import utils.FileInfo;
 
 import java.io.DataInputStream;
@@ -14,8 +15,8 @@ import java.net.Socket;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ClientMessageHandler {
-    ClientMessage getClientMessage(Socket socket) throws UnableParseQueryException {
+class ClientMessageHandler {
+    @NotNull ClientMessage getClientMessage(@NotNull Socket socket) throws UnableParseQueryException {
         try {
             DataInputStream in = new DataInputStream(socket.getInputStream());
             byte queryId = in.readByte();
@@ -39,7 +40,7 @@ public class ClientMessageHandler {
         }
     }
 
-    void sendMessage(Socket socket, TrackerMessage message) throws InternalTrackerClientException {
+    void sendMessage(@NotNull Socket socket, @NotNull TrackerMessage message) throws InternalTrackerClientException {
         DataOutputStream out;
         try {
             out = new DataOutputStream(socket.getOutputStream());
@@ -53,7 +54,7 @@ public class ClientMessageHandler {
         return new ListRequest();
     }
 
-    private UploadRequest getUploadRequest(DataInputStream in) throws UnableParseQueryException {
+    private UploadRequest getUploadRequest(@NotNull DataInputStream in) throws UnableParseQueryException {
         try {
             String fileName = in.readUTF();
             long size = in.readLong();
@@ -63,7 +64,7 @@ public class ClientMessageHandler {
         }
     }
 
-    private UpdateRequest getUpdateRequest(DataInputStream in) throws UnableParseQueryException {
+    private UpdateRequest getUpdateRequest(@NotNull DataInputStream in) throws UnableParseQueryException {
         try {
             short port = in.readShort();
             int count = in.readInt();
@@ -78,7 +79,7 @@ public class ClientMessageHandler {
         }
     }
 
-    private SourcesRequest getSourcesRequest(DataInputStream in) throws UnableParseQueryException {
+    private SourcesRequest getSourcesRequest(@NotNull DataInputStream in) throws UnableParseQueryException {
         try {
             int fileId = in.readInt();
             return new SourcesRequest(fileId);

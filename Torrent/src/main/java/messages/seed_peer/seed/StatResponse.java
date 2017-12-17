@@ -1,6 +1,7 @@
 package messages.seed_peer.seed;
 
 import exceptions.UnableSendResponseException;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -14,7 +15,7 @@ public class StatResponse implements SeedMessage {
     }
 
     @Override
-    public void send(DataOutputStream out) throws UnableSendResponseException {
+    public void send(@NotNull DataOutputStream out) throws UnableSendResponseException {
         try {
             out.writeInt(parts.cardinality());
             for (int partNumber = 0; partNumber < parts.length(); ++partNumber) {

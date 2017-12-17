@@ -2,19 +2,17 @@ package tracker;
 
 import java.util.Scanner;
 
-public class TrackerMain {
+class TrackerMain {
     public static void main(String[] args) {
         Tracker tracker = new TrackerImpl();
         Scanner scanner = new Scanner(System.in);
-//        String command = scanner.next();
-        String command = "start";
+        String command = scanner.next();
         boolean stopped = false;
         while (!stopped) {
             switch (command) {
                 case "start":
                     System.out.println("Enter a number of threads");
-                    //Thread trackerThread = new Thread(() -> tracker.start(scanner.nextInt()));
-                    Thread trackerThread = new Thread(() -> tracker.start(4));
+                    Thread trackerThread = new Thread(() -> tracker.start(scanner.nextInt()));
                     trackerThread.start();
                     System.out.println("The tracker is running");
                     break;

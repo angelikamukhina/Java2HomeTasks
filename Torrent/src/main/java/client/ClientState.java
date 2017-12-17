@@ -1,6 +1,7 @@
 package client;
 
 import exceptions.NotWholeFileException;
+import org.jetbrains.annotations.NotNull;
 import utils.FileInfo;
 import utils.TorrentConstants;
 
@@ -10,9 +11,11 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class ClientState {
+    @NotNull
+    private final Map<Integer, BitSet> fileParts = new HashMap<>();
+    @NotNull
+    private final Map<Integer, List<byte[]>> filePartsContent = new HashMap<>();
     private Map<Integer, FileInfo> filesInfo;
-    private Map<Integer, BitSet> fileParts = new HashMap<>();
-    private Map<Integer, List<byte[]>> filePartsContent = new HashMap<>();
 
     public synchronized BitSet getParts(int fileId) {
         if (fileParts.containsKey(fileId)) {
@@ -23,7 +26,7 @@ public class ClientState {
         }
     }
 
-    public synchronized void addWholeFile(int fileId, String filePath) throws IOException {
+    public synchronized void addWholeFile(int fileId, @NotNull String filePath) throws IOException {
         File file = new File(filePath);
         if (file.exists()) {
             FileInputStream fin = new FileInputStream(file);
@@ -42,7 +45,7 @@ public class ClientState {
         }
     }
 
-    public void storePartsToFile(int fileId, String filePath)
+    public void storePartsToFile(int fileId, @NotNull String filePath)
             throws NotWholeFileException, IOException {
         if (fileParts.get(fileId).cardinality() != fileParts.get(fileId).length()) {
             throw new NotWholeFileException("File " + filesInfo.get(fileId).getName()
@@ -50,12 +53,12 @@ public class ClientState {
         }
         File file = new File(filePath);
 
-        FileOutputStream fout = new FileOutputStream(file);
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
         for (byte[] content : filePartsContent.get(fileId)) {
-            fout.write(content);
+            fileOutputStream.write(content);
         }
-        fout.flush();
-        fout.close();
+        fileOutputStream.flush();
+        fileOutputStream.close();
     }
 
     public synchronized void addPartContent(int fileId, int part, byte[] content) {
@@ -75,6 +78,7 @@ public class ClientState {
         }
     }
 
+    @NotNull
     public Set<Integer> getAvailableFilesIds() {
         return fileParts.keySet();
     }
@@ -87,14 +91,14 @@ public class ClientState {
         filesInfo = files;
     }
 
-    public synchronized void storeToFile(String filePath) throws IOException {
+    public synchronized void storeToFile(@NotNull String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
             Files.createFile(Paths.get(filePath));
         }
 
-        FileOutputStream fout = new FileOutputStream(file);
-        DataOutputStream out = new DataOutputStream(fout);
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        DataOutputStream out = new DataOutputStream(fileOutputStream);
 
         out.writeInt(fileParts.size());
         for (int fileId : fileParts.keySet()) {
@@ -110,7 +114,7 @@ public class ClientState {
         }
     }
 
-    public synchronized void getFromFile(String filePath) throws IOException {
+    public synchronized void getFromFile(@NotNull String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
             Files.createFile(Paths.get(filePath));

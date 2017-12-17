@@ -1,6 +1,7 @@
 package messages.client_tracker.tracker;
 
 import exceptions.UnableSendResponseException;
+import org.jetbrains.annotations.NotNull;
 import utils.SeedInfo;
 
 import java.io.DataOutputStream;
@@ -15,7 +16,7 @@ public class SourcesResponse implements TrackerMessage {
     }
 
     @Override
-    public void send(DataOutputStream out) throws UnableSendResponseException {
+    public void send(@NotNull DataOutputStream out) throws UnableSendResponseException {
         try {
             out.writeInt(seeds.size());
             for (SeedInfo seed : seeds) {

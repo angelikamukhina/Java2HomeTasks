@@ -1,5 +1,7 @@
 package utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -15,7 +17,7 @@ public class IPv4 {
         this.ip = ip;
     }
 
-    public static IPv4 getIP(DataInputStream in) throws IOException {
+    public static IPv4 getIP(@NotNull DataInputStream in) throws IOException {
         byte[] ip = new byte[BYTES_NUMBER];
         int bytesRead = in.read(ip);
         if (bytesRead != BYTES_NUMBER) {
@@ -24,10 +26,11 @@ public class IPv4 {
         return new IPv4(ip);
     }
 
-    void write(DataOutputStream out) throws IOException {
+    void write(@NotNull DataOutputStream out) throws IOException {
         out.write(ip);
     }
 
+    @NotNull
     public InetAddress getInetAddress() throws UnknownHostException {
         return InetAddress.getByAddress(ip);
     }

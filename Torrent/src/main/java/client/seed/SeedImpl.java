@@ -12,13 +12,11 @@ import java.util.concurrent.Executors;
 
 public class SeedImpl implements Seed {
     private ServerSocket socket;
-    private ClientState clientState;
 
     @Override
     public void start(short port, int threadsNumber, ClientState clientState)
             throws InternalSeedException {
         ExecutorService threadPool = Executors.newFixedThreadPool(threadsNumber);
-        this.clientState = clientState;
         try {
             socket = new ServerSocket(port);
             while (true) {

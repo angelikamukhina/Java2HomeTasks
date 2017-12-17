@@ -3,6 +3,7 @@ package messages.client_tracker.client;
 import exceptions.UnableHandleQueryException;
 import messages.Queries;
 import messages.client_tracker.tracker.UpdateResponse;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -20,8 +21,9 @@ public class UpdateRequest implements ClientMessage {
         this.filesIds = filesIds;
     }
 
+    @NotNull
     @Override
-    public UpdateResponse handleQuery(Socket clientSocket) throws UnableHandleQueryException {
+    public UpdateResponse handleQuery(@NotNull Socket clientSocket) throws UnableHandleQueryException {
         try {
             DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
             out.writeByte(QUERY_ID);

@@ -20,5 +20,5 @@ public interface TrackerClient {
 
     List<SeedInfo> getSeeds(int fileId);
 
-    boolean updateClientInfo(short seedPort, Set<Integer> ids);
+    void updateClientInfo(short seedPort, Set<Integer> ids);
 }

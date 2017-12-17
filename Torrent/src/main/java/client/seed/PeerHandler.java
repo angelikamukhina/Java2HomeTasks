@@ -6,6 +6,7 @@ import messages.seed_peer.peer.PeerMessage;
 import messages.seed_peer.peer.StatRequest;
 import messages.seed_peer.seed.GetResponse;
 import messages.seed_peer.seed.StatResponse;
+import org.jetbrains.annotations.NotNull;
 
 import java.net.Socket;
 import java.util.BitSet;
@@ -40,7 +41,7 @@ class PeerHandler implements Runnable {
         }
     }
 
-    private void executeStat(StatRequest message) {
+    private void executeStat(@NotNull StatRequest message) {
         int fileId = message.getFileId();
         BitSet parts = clientState.getParts(fileId);
         StatResponse response = new StatResponse(parts);
@@ -48,7 +49,7 @@ class PeerHandler implements Runnable {
         messageHandler.sendMessage(peerSocket, response);
     }
 
-    private void executeGet(GetRequest message) {
+    private void executeGet(@NotNull GetRequest message) {
         int fileId = message.getFileId();
         int partNumber = message.getPartNumber();
         GetResponse response = new GetResponse(clientState.getPartContent(fileId, partNumber));

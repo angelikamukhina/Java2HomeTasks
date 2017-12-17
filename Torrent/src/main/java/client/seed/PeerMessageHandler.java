@@ -8,6 +8,7 @@ import messages.seed_peer.peer.GetRequest;
 import messages.seed_peer.peer.PeerMessage;
 import messages.seed_peer.peer.StatRequest;
 import messages.seed_peer.seed.SeedMessage;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -15,7 +16,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 class PeerMessageHandler {
-    PeerMessage getPeerMessage(Socket socket) throws UnableParseQueryException {
+    @NotNull PeerMessage getPeerMessage(@NotNull Socket socket) throws UnableParseQueryException {
         try {
             DataInputStream in = new DataInputStream(socket.getInputStream());
             byte queryId = in.readByte();
@@ -35,7 +36,7 @@ class PeerMessageHandler {
         }
     }
 
-    void sendMessage(Socket socket, SeedMessage message) throws InternalSeedException {
+    void sendMessage(@NotNull Socket socket, @NotNull SeedMessage message) throws InternalSeedException {
         try {
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
             message.send(out);
@@ -44,7 +45,7 @@ class PeerMessageHandler {
         }
     }
 
-    private GetRequest getGetRequestMessage(DataInputStream in) throws UnableParseQueryException {
+    private GetRequest getGetRequestMessage(@NotNull DataInputStream in) throws UnableParseQueryException {
         try {
             int fileId = in.readInt();
             int partNumber = in.readInt();
@@ -54,7 +55,7 @@ class PeerMessageHandler {
         }
     }
 
-    private StatRequest getStatRequestMessage(DataInputStream in) throws UnableParseQueryException {
+    private StatRequest getStatRequestMessage(@NotNull DataInputStream in) throws UnableParseQueryException {
         try {
             int fileId = in.readInt();
             return new StatRequest(fileId);

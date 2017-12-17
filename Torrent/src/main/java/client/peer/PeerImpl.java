@@ -7,6 +7,7 @@ import messages.seed_peer.peer.GetRequest;
 import messages.seed_peer.peer.StatRequest;
 import messages.seed_peer.seed.GetResponse;
 import messages.seed_peer.seed.StatResponse;
+import org.jetbrains.annotations.NotNull;
 import utils.SeedInfo;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class PeerImpl implements Peer {
     private Socket socket;
 
     @Override
-    public void start(SeedInfo seedInfo) throws UnableSetConnectionException {
+    public void start(@NotNull SeedInfo seedInfo) throws UnableSetConnectionException {
         try {
             socket = new Socket(seedInfo.getIp().getInetAddress(), seedInfo.getPort());
         } catch (IOException exception) {

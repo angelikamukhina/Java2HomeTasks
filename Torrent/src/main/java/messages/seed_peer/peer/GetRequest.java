@@ -3,6 +3,7 @@ package messages.seed_peer.peer;
 import exceptions.UnableHandleQueryException;
 import messages.Queries;
 import messages.seed_peer.seed.GetResponse;
+import org.jetbrains.annotations.NotNull;
 import utils.TorrentConstants;
 
 import java.io.DataInputStream;
@@ -20,8 +21,9 @@ public class GetRequest implements PeerMessage {
         this.partNumber = partNumber;
     }
 
+    @NotNull
     @Override
-    public GetResponse handleQuery(Socket peerSocket) throws UnableHandleQueryException {
+    public GetResponse handleQuery(@NotNull Socket peerSocket) throws UnableHandleQueryException {
         try {
             DataOutputStream out = new DataOutputStream(peerSocket.getOutputStream());
             out.writeByte(QUERY_ID);
@@ -37,6 +39,7 @@ public class GetRequest implements PeerMessage {
         }
     }
 
+    @NotNull
     @Override
     public Queries.SeedPeerQueries getType() {
         return Queries.SeedPeerQueries.GET;

@@ -4,6 +4,7 @@ import exceptions.UnableHandleQueryException;
 import exceptions.UnableSendResponseException;
 import messages.Queries;
 import messages.seed_peer.seed.StatResponse;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -19,8 +20,9 @@ public class StatRequest implements PeerMessage {
         this.fileId = fileId;
     }
 
+    @NotNull
     @Override
-    public StatResponse handleQuery(Socket peerSocket) throws UnableHandleQueryException {
+    public StatResponse handleQuery(@NotNull Socket peerSocket) throws UnableHandleQueryException {
         try {
             DataOutputStream out = new DataOutputStream(peerSocket.getOutputStream());
             out.writeByte(QUERY_ID);
@@ -39,6 +41,7 @@ public class StatRequest implements PeerMessage {
         }
     }
 
+    @NotNull
     @Override
     public Queries.SeedPeerQueries getType() {
         return Queries.SeedPeerQueries.STAT;

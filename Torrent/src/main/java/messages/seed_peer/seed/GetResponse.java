@@ -1,6 +1,7 @@
 package messages.seed_peer.seed;
 
 import exceptions.UnableSendResponseException;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -13,7 +14,7 @@ public class GetResponse implements SeedMessage {
     }
 
     @Override
-    public void send(DataOutputStream out) throws UnableSendResponseException {
+    public void send(@NotNull DataOutputStream out) throws UnableSendResponseException {
         try {
             out.write(partContent);
         } catch (IOException exception) {

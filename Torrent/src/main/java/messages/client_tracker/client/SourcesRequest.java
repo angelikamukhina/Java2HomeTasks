@@ -3,6 +3,7 @@ package messages.client_tracker.client;
 import exceptions.UnableHandleQueryException;
 import messages.Queries;
 import messages.client_tracker.tracker.SourcesResponse;
+import org.jetbrains.annotations.NotNull;
 import utils.IPv4;
 import utils.SeedInfo;
 
@@ -21,8 +22,9 @@ public class SourcesRequest implements ClientMessage {
         this.fileId = fileId;
     }
 
+    @NotNull
     @Override
-    public SourcesResponse handleQuery(Socket clientSocket) throws UnableHandleQueryException {
+    public SourcesResponse handleQuery(@NotNull Socket clientSocket) throws UnableHandleQueryException {
         try {
             DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
             DataInputStream in = new DataInputStream(clientSocket.getInputStream());

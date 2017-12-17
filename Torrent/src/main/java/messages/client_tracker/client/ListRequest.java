@@ -3,6 +3,7 @@ package messages.client_tracker.client;
 import exceptions.UnableHandleQueryException;
 import messages.Queries;
 import messages.client_tracker.tracker.ListResponse;
+import org.jetbrains.annotations.NotNull;
 import utils.FileInfo;
 
 import java.io.DataInputStream;
@@ -15,8 +16,9 @@ import java.util.Map;
 public class ListRequest implements ClientMessage {
     private static final byte QUERY_ID = 1;
 
+    @NotNull
     @Override
-    public ListResponse handleQuery(Socket clientSocket) throws UnableHandleQueryException {
+    public ListResponse handleQuery(@NotNull Socket clientSocket) throws UnableHandleQueryException {
         try {
             DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
             DataInputStream in = new DataInputStream(clientSocket.getInputStream());

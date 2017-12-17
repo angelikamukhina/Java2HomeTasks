@@ -1,5 +1,7 @@
 package utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -13,7 +15,7 @@ public class FileInfo {
         this.size = size;
     }
 
-    public static FileInfo getFileInfo(DataInputStream in) throws IOException {
+    public static FileInfo getFileInfo(@NotNull DataInputStream in) throws IOException {
         String name = in.readUTF();
         long size = in.readLong();
         return new FileInfo(name, size);
@@ -27,7 +29,7 @@ public class FileInfo {
         return size;
     }
 
-    public void write(DataOutputStream out) throws IOException {
+    public void write(@NotNull DataOutputStream out) throws IOException {
         out.writeUTF(name);
         out.writeLong(size);
     }

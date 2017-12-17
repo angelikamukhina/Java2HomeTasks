@@ -8,6 +8,7 @@ import messages.client_tracker.tracker.ListResponse;
 import messages.client_tracker.tracker.SourcesResponse;
 import messages.client_tracker.tracker.UpdateResponse;
 import messages.client_tracker.tracker.UploadResponse;
+import org.jetbrains.annotations.NotNull;
 import utils.FileInfo;
 import utils.IPv4;
 import utils.SeedInfo;
@@ -17,9 +18,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ClientHandler implements Runnable {
-    private Socket socket;
-    private TrackerState trackerState;
+class ClientHandler implements Runnable {
+    private final Socket socket;
+    private final TrackerState trackerState;
 
     ClientHandler(Socket socket, TrackerState trackerState) {
         this.socket = socket;
@@ -29,12 +30,7 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         ClientMessageHandler messageHandler = new ClientMessageHandler();
-        ClientMessage message = null;
-        try {
-            message = messageHandler.getClientMessage(socket);
-        } catch (exceptions.InternalTrackerException e) {
-            e.printStackTrace();
-        }
+        ClientMessage message = messageHandler.getClientMessage(socket);
         boolean stopped = false;
         while (!stopped) {
             switch (message.getQueryType()) {
@@ -53,11 +49,7 @@ public class ClientHandler implements Runnable {
                 case DISCONNECT:
                     stopped = true;
             }
-            try {
-                message = messageHandler.getClientMessage(socket);
-            } catch (exceptions.InternalTrackerException e) {
-                e.printStackTrace();
-            }
+            message = messageHandler.getClientMessage(socket);
         }
     }
 
@@ -68,7 +60,7 @@ public class ClientHandler implements Runnable {
         messageHandler.sendMessage(socket, listResponse);
     }
 
-    private void executeUpdate(UpdateRequest message) {
+    private void executeUpdate(@NotNull UpdateRequest message) {
         Set<Integer> filesIds = message.getFilesIds();
         short port = message.getPort();
         for (int fileId : filesIds) {
@@ -80,14 +72,14 @@ public class ClientHandler implements Runnable {
         messageHandler.sendMessage(socket, response);
     }
 
-    private void executeUpload(UploadRequest message) {
+    private void executeUpload(@NotNull UploadRequest message) {
         int fileId = trackerState.addNewFile(message.getFileInfo());
         UploadResponse uploadResponse = new UploadResponse(fileId);
         ClientMessageHandler messageHandler = new ClientMessageHandler();
         messageHandler.sendMessage(socket, uploadResponse);
     }
 
-    private void executeSources(SourcesRequest message) {
+    private void executeSources(@NotNull SourcesRequest message) {
         int fileId = message.getFileId();
         List<SeedInfo> seeds = trackerState.getSeeds(fileId);
         SourcesResponse sourcesResponse = new SourcesResponse(seeds);

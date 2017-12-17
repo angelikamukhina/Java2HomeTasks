@@ -3,6 +3,7 @@ package messages.client_tracker.client;
 import exceptions.UnableHandleQueryException;
 import messages.Queries;
 import messages.client_tracker.tracker.UploadResponse;
+import org.jetbrains.annotations.NotNull;
 import utils.FileInfo;
 
 import java.io.DataInputStream;
@@ -18,8 +19,9 @@ public class UploadRequest implements ClientMessage {
         this.fileInfo = fileInfo;
     }
 
+    @NotNull
     @Override
-    public UploadResponse handleQuery(Socket clientSocket) throws UnableHandleQueryException {
+    public UploadResponse handleQuery(@NotNull Socket clientSocket) throws UnableHandleQueryException {
         try {
             DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
             out.writeByte(QUERY_ID);

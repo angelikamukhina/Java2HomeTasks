@@ -3,6 +3,7 @@ package tracker;
 import exceptions.InternalTrackerException;
 import exceptions.UnableReadState;
 import exceptions.UnableStoreState;
+import org.jetbrains.annotations.NotNull;
 import utils.TorrentConstants;
 
 import java.io.IOException;
@@ -13,8 +14,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class TrackerImpl implements Tracker {
+    @NotNull
+    private final TrackerState trackerState = new TrackerState();
     private ServerSocket serverSocket;
-    private TrackerState trackerState = new TrackerState();
 
     @Override
     public void start(int threadsNumber) throws UnableReadState, InternalTrackerException {

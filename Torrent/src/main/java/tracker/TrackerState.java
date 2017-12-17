@@ -1,5 +1,6 @@
 package tracker;
 
+import org.jetbrains.annotations.NotNull;
 import utils.FileInfo;
 import utils.SeedInfo;
 
@@ -11,9 +12,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TrackerState {
-    private Map<Integer, FileInfo> files = new HashMap<>();
-    private Map<Integer, List<SeedInfo>> seeds = new HashMap<>();
+class TrackerState {
+    @NotNull
+    private final Map<Integer, FileInfo> files = new HashMap<>();
+    @NotNull
+    private final Map<Integer, List<SeedInfo>> seeds = new HashMap<>();
 
     synchronized public int addNewFile(FileInfo fileInfo) {
         int fileId = files.size();
@@ -22,20 +25,19 @@ public class TrackerState {
         return fileId;
     }
 
-    synchronized boolean addNewSeedIfAbsent(int fileId, SeedInfo seedInfo) {
+    synchronized void addNewSeedIfAbsent(int fileId, SeedInfo seedInfo) {
         if (!seeds.get(fileId).contains(seedInfo)) {
             seeds.get(fileId).add(seedInfo);
         }
-        return true;
     }
 
-    public synchronized void storeToFile(String filePath) throws IOException {
+    public synchronized void storeToFile(@NotNull String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
             Files.createFile(Paths.get(filePath));
         }
-        FileOutputStream fout = new FileOutputStream(file);
-        DataOutputStream out = new DataOutputStream(fout);
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        DataOutputStream out = new DataOutputStream(fileOutputStream);
 
         out.writeInt(files.size());
         for (int fileId : files.keySet()) {
@@ -45,7 +47,7 @@ public class TrackerState {
         }
     }
 
-    public synchronized void getFromFile(String filePath) throws IOException {
+    public synchronized void getFromFile(@NotNull String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
             Files.createFile(Paths.get(filePath));
@@ -68,6 +70,7 @@ public class TrackerState {
         return seeds.get(fileId);
     }
 
+    @NotNull
     synchronized Map<Integer, FileInfo> getAvailableFiles() {
         return files;
     }

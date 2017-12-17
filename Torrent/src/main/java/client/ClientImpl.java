@@ -8,6 +8,7 @@ import client.tracker_client.TrackerClient;
 import client.tracker_client.TrackerClientImpl;
 import exceptions.UnableReadState;
 import exceptions.UnableStoreState;
+import org.jetbrains.annotations.NotNull;
 import utils.FileInfo;
 import utils.SeedInfo;
 import utils.TorrentConstants;
@@ -18,14 +19,17 @@ import java.util.List;
 import java.util.Map;
 
 public class ClientImpl implements Client {
-    private ClientState state = new ClientState();
-    private Peer peer = new PeerImpl();
-    private Seed seed = new SeedImpl();
-    private Thread seedThread;
-    private TrackerClient trackerClient = new TrackerClientImpl();
+    @NotNull
+    private final ClientState state = new ClientState();
+    @NotNull
+    private final Peer peer = new PeerImpl();
+    @NotNull
+    private final Seed seed = new SeedImpl();
+    @NotNull
+    private final TrackerClient trackerClient = new TrackerClientImpl();
 
     @Override
-    public void start(String trackerHost, short seedPort, int threadsNumber)
+    public void start(@NotNull String trackerHost, short seedPort, int threadsNumber)
             throws UnableReadState {
         try {
             state.getFromFile(TorrentConstants.clientStateFile);
@@ -33,7 +37,7 @@ public class ClientImpl implements Client {
             throw new UnableReadState(exception);
         }
         trackerClient.start(trackerHost);
-        seedThread = new Thread(() -> seed.start(seedPort, threadsNumber, state));
+        Thread seedThread = new Thread(() -> seed.start(seedPort, threadsNumber, state));
         seedThread.start();
         trackerClient.updateClientInfo(seedPort, state.getAvailableFilesIds());
     }
@@ -58,7 +62,7 @@ public class ClientImpl implements Client {
     }
 
     @Override
-    public int uploadFile(String filePath) throws IOException {
+    public int uploadFile(@NotNull String filePath) throws IOException {
         int fileId = trackerClient.uploadNewFile(filePath);
         state.addWholeFile(fileId, filePath);
         trackerClient.updateClientInfo(seed.getPort(), state.getAvailableFilesIds());
@@ -66,7 +70,7 @@ public class ClientImpl implements Client {
     }
 
     @Override
-    public boolean downloadFile(int fileId, String filePath) throws IOException {
+    public void downloadFile(int fileId, @NotNull String filePath) throws IOException {
         trackerClient.getFilesList();
         List<SeedInfo> seeds = trackerClient.getSeeds(fileId);
         boolean theFirstPartGot = false;
@@ -86,6 +90,5 @@ public class ClientImpl implements Client {
             }
         }
         state.storePartsToFile(fileId, filePath);
-        return true;
     }
 }
