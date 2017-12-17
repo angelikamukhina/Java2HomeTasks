@@ -2,12 +2,14 @@ package tracker;
 
 import utils.FileInfo;
 import utils.SeedInfo;
-import utils.TorrentConstants;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TrackerState {
     private Map<Integer, FileInfo> files = new HashMap<>();

@@ -7,10 +7,12 @@ import java.net.Socket;
 public class SeedInfo {
     private final IPv4 ip;
     private final short port;
+
     public SeedInfo(IPv4 ip, short port) {
         this.ip = ip;
         this.port = port;
     }
+
     public static SeedInfo getSeedInfo(Socket socket) {
         if (!socket.isClosed()) {
             short port = (short) socket.getPort();

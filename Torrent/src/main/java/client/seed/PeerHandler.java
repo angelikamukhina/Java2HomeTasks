@@ -27,10 +27,10 @@ class PeerHandler implements Runnable {
         while (!stopped) {
             switch (message.getType()) {
                 case GET:
-                    executeGet((GetRequest)message);
+                    executeGet((GetRequest) message);
                     break;
                 case STAT:
-                    executeStat((StatRequest)message);
+                    executeStat((StatRequest) message);
                     break;
                 case DISCONNECT:
                     stopped = true;

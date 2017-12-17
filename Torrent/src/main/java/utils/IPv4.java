@@ -8,8 +8,12 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 
 public class IPv4 {
-    private final byte[] ip;
     private static final int BYTES_NUMBER = 4;
+    private final byte[] ip;
+
+    public IPv4(byte[] ip) {
+        this.ip = ip;
+    }
 
     public static IPv4 getIP(DataInputStream in) throws IOException {
         byte[] ip = new byte[BYTES_NUMBER];
@@ -22,10 +26,6 @@ public class IPv4 {
 
     void write(DataOutputStream out) throws IOException {
         out.write(ip);
-    }
-
-    public IPv4(byte[] ip) {
-        this.ip = ip;
     }
 
     public InetAddress getInetAddress() throws UnknownHostException {

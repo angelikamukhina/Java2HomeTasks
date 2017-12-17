@@ -42,6 +42,6 @@ public class SeedImpl implements Seed {
 
     @Override
     public short getPort() {
-        return (short)socket.getLocalPort();
+        return (short) socket.getLocalPort();
     }
 }

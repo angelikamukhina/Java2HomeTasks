@@ -11,9 +11,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ClientMessageHandler {
@@ -34,7 +32,7 @@ public class ClientMessageHandler {
                 case DISCONNECT:
                     return getDisconnectRequest();
                 default:
-                    throw new UnableParseQueryException("Wrong client query type: " +queryId);
+                    throw new UnableParseQueryException("Wrong client query type: " + queryId);
             }
         } catch (IOException exception) {
             throw new UnableParseQueryException(exception);
@@ -85,7 +83,7 @@ public class ClientMessageHandler {
             int fileId = in.readInt();
             return new SourcesRequest(fileId);
         } catch (IOException exception) {
-           throw new UnableParseQueryException(exception);
+            throw new UnableParseQueryException(exception);
         }
     }
 

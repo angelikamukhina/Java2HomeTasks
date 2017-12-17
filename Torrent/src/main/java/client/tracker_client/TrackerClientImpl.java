@@ -23,6 +23,7 @@ import java.util.Set;
 
 public class TrackerClientImpl implements TrackerClient {
     private Socket socket;
+
     @Override
     public void start(String trackerHost) throws UnableSetConnectionException {
         try {

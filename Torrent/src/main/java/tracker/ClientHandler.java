@@ -1,6 +1,9 @@
 package tracker;
 
-import messages.client_tracker.client.*;
+import messages.client_tracker.client.ClientMessage;
+import messages.client_tracker.client.SourcesRequest;
+import messages.client_tracker.client.UpdateRequest;
+import messages.client_tracker.client.UploadRequest;
 import messages.client_tracker.tracker.ListResponse;
 import messages.client_tracker.tracker.SourcesResponse;
 import messages.client_tracker.tracker.UpdateResponse;
@@ -39,13 +42,13 @@ public class ClientHandler implements Runnable {
                     executeList();
                     break;
                 case UPDATE:
-                    executeUpdate((UpdateRequest)message);
+                    executeUpdate((UpdateRequest) message);
                     break;
                 case UPLOAD:
-                    executeUpload((UploadRequest)message);
+                    executeUpload((UploadRequest) message);
                     break;
                 case SOURCES:
-                    executeSources((SourcesRequest)message);
+                    executeSources((SourcesRequest) message);
                     break;
                 case DISCONNECT:
                     stopped = true;

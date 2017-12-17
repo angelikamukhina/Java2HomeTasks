@@ -11,6 +11,7 @@ public class UpdateResponse implements TrackerMessage {
     public UpdateResponse(boolean status) {
         this.status = status;
     }
+
     @Override
     public void send(DataOutputStream out) throws UnableSendResponseException {
         try {

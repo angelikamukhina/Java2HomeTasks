@@ -8,5 +8,6 @@ import java.net.Socket;
 
 public interface ClientMessage {
     TrackerMessage handleQuery(Socket clientSocket) throws UnableHandleQueryException;
+
     Queries.ClientTrackerQueries getQueryType();
 }

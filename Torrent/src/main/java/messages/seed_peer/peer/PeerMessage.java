@@ -8,5 +8,6 @@ import java.net.Socket;
 
 public interface PeerMessage {
     SeedMessage handleQuery(Socket peerSocket) throws UnableHandleQueryException;
+
     Queries.SeedPeerQueries getType();
 }

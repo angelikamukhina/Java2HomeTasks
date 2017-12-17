@@ -3,11 +3,11 @@ package messages.client_tracker.client;
 import exceptions.UnableHandleQueryException;
 import messages.Queries;
 import messages.client_tracker.tracker.UpdateResponse;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.List;
 import java.util.Set;
 
 public class UpdateRequest implements ClientMessage {

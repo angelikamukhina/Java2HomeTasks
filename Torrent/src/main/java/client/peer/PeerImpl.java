@@ -10,7 +10,6 @@ import messages.seed_peer.seed.StatResponse;
 import utils.SeedInfo;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.util.BitSet;
 
@@ -28,12 +27,14 @@ public class PeerImpl implements Peer {
 
     @Override
     public void stop() throws InternalPeerException {
-        DisconnectRequest disconnectRequest = new DisconnectRequest();
-        disconnectRequest.handleQuery(socket);
-        try {
-            socket.close();
-        } catch (IOException exception) {
-            throw new InternalPeerException(exception);
+        if (socket != null) {
+            DisconnectRequest disconnectRequest = new DisconnectRequest();
+            disconnectRequest.handleQuery(socket);
+            try {
+                socket.close();
+            } catch (IOException exception) {
+                throw new InternalPeerException(exception);
+            }
         }
     }
 

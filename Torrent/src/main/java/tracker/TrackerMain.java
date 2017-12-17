@@ -18,7 +18,7 @@ public class TrackerMain {
                     trackerThread.start();
                     System.out.println("The tracker is running");
                     break;
-                case "stop" :
+                case "stop":
                     stopped = true;
                     tracker.stop();
                     System.out.println("The tracker is stopped");

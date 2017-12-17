@@ -62,7 +62,7 @@ public class ClientState {
         if (!filePartsContent.containsKey(fileId)) {
             long fileSize = filesInfo.get(fileId).getSize();
             List<byte[]> partsContents = new ArrayList<>();
-            for (int partNo = 0; partNo < (int)(fileSize / TorrentConstants.PART_SIZE) + 1; ++partNo) {
+            for (int partNo = 0; partNo < (int) (fileSize / TorrentConstants.PART_SIZE) + 1; ++partNo) {
                 byte[] initial = new byte[0];
                 partsContents.add(initial);
             }
@@ -126,7 +126,11 @@ public class ClientState {
             int fileId = in.readInt();
             int partsNumber = in.readInt();
             BitSet parts = new BitSet(partsNumber);
-            List<byte[]> partsContents = new ArrayList<>(partsNumber);
+            List<byte[]> partsContents = new ArrayList<>();
+            for (int partNo = 0; partNo < partsNumber; ++partNo) {
+                byte[] content = new byte[0];
+                partsContents.add(content);
+            }
             for (int part = 0; part < partsNumber; ++part) {
                 int partNo = in.readInt();
                 parts.set(partNo);
